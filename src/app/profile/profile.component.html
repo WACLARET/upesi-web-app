@@ -1,0 +1,177 @@
+<!-- <div class="modal fade" id="edit">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Update Profile Information</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <form (submit)="editDetails()">
+          <div class="row">
+          <div class="form-group col-md-6">
+            <label for="formGroupExampleInput">First Name</label>
+            <input type="text" class="form-control" name="edit_fname" [(ngModel)]="edit_fname" id="formGroupExampleInput" value="{{ f_name }}">
+          </div>
+          <div class="form-group col-md-6">
+              <label for="formGroupExampleInput">Last Name</label>
+              <input type="text" class="form-control" name="edit_lname" [(ngModel)]="edit_lname" id="formGroupExampleInput" value="{{ l_name }}">
+            </div>
+          <div class="form-group col-md-6">
+            <label for="formGroupExampleInput2">Email</label>
+            <input type="text" class="form-control" name="edit_email" [(ngModel)]="edit_email" id="formGroupExampleInput2" value="{{ email }}">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="formGroupExampleInput">Phone</label>
+            <input type="text" class="form-control" name="edit_phone" [(ngModel)]="edit_phone" id="formGroupExampleInput" value="{{ phone }}">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="formGroupExampleInput2">Password</label>
+            <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Enter password">
+          </div>
+          <div class="form-group col-md-6">
+              <label for="formGroupExampleInput2">Retype Password</label>
+              <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Retype password">
+            </div>
+        </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div> -->
+<main>
+		
+  <div class="container margin_60_35">
+<div class="row">
+  <aside class="col-lg-3" id="sidebar">
+    <div class="profile">
+        <figure><img src="assets/user.svg" alt="Teacher"></figure>
+                  <div class="profile-name">
+                      <p>{{ f_name }} {{ l_name }}</p>
+                  </div>
+      <ul>
+                      <li><a routerLink="/dashboard"><i class="fa fa-home"></i> Dashboard</a></li>
+                      <li class="active"><a routerLink="/profile"><i class="fa fa-group"></i> Profile</a></li>
+                      <li><a routerLink="/transactions"><i class="fa fa-money"></i> Transactions</a></li>
+                      <li><a routerLink="/beneficiaries"><i class="fa fa-user"></i> Beneficiaries</a></li>
+                      <!-- <li><i class="fa fa-bar-chart"></i> Reports</li> -->
+        
+      </ul>
+    </div>
+  </aside>
+  <!--/aside -->
+
+  <div class="col-lg-9">
+    <div class="box_teacher">
+                      <div class="box_highlight">
+        </div>
+
+        <h4>Profile Information</h4>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card mt-3 tab-card">
+              <div class="card-header tab-card-header">
+                <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
+                  <li class="nav-item">
+                      <a class="nav-link" id="one-tab" data-toggle="tab" href="#one" role="tab" aria-controls="One" aria-selected="true">Personal Info</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" id="two-tab" data-toggle="tab" href="#two" role="tab" aria-controls="Two" aria-selected="false">Upload Profile Photo</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="three-tab" data-toggle="tab" href="#three" role="tab" aria-controls="Three" aria-selected="false">KYC Compliance</a>
+                </li>
+                </ul>
+              </div>
+      
+              <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active p-3" id="one" role="tabpanel" aria-labelledby="one-tab">
+                  <h5 class="card-title">{{ f_name }} {{ l_name }}</h5>
+                  <p class="card-text">Email: {{ email }} <br>
+                    Phone: {{ phone }}<br>
+                    Username: {{ username }}</p>
+<!--                   <a href="#edit" data-toggle="modal" data-target="#edit" data-backdrop="false" class="btn btn-primary">Update Details</a>   -->            
+                </div>
+                <div class="tab-pane fade p-3" id="two" role="tabpanel" aria-labelledby="two-tab">
+                  <h5 class="card-title">Pick Photo:</h5>
+                  <p class="card-text"></p>
+                  <form (submit)="uploadProfile()" enctype="multipart/form-data">
+                    Select image to upload:
+                    <input type="file" name="profile_pic" id="profile_pic" [(ngModel)]="profile_pic"><br>
+                    <button class="btn btn-primary" type="submit" name="submit">Upload Avatar</button>
+                </form>          
+                </div>
+                <div class="tab-pane fade p-3" id="three" role="tabpanel" aria-labelledby="three-tab">
+                  <h5 class="card-title">KYC Details:</h5>
+                  <p class="card-text"></p>
+                  <form (submit)="uploadCompliance()" enctype="multipart/form-data">
+                    <div class="row">
+                    <div class="form-group col-md-12">
+                      <ng-select [items]="auth_countries"
+                      bindLabel="name" name="CountryID" bindValue="id"
+                      placeholder="Pick your Country"
+                      [(ngModel)]="CountryID">
+                      </ng-select>
+                      
+                      <div id="pass-info" class="clearfix"></div>
+                    </div>
+                    <div class="form-group col-md-6">
+                      <span class="input">
+                          <input class="input_field" name="DOB" [(ngModel)]="DOB" placeholder="dd/mm/yyyy" type="text">
+                            <label class="input_label">
+                            <span class="input__label-content">Date of Birth</span>
+                          </label>
+                          </span>
+                    </div>
+                    <div class="form-group col-md-6">
+                      <span class="input">
+                          <input class="input_field" name="Occupation" [(ngModel)]="Occupation" placeholder="Enter occupation" type="text">
+                            <label class="input_label">
+                            <span class="input__label-content">Occupation</span>
+                          </label>
+                          </span>
+                    </div>
+                    <div class="form-group col-md-6">
+                      <span class="input">
+                          <input class="input_field" name="Address" [(ngModel)]="Address" placeholder="Enter address" type="text">
+                            <label class="input_label">
+                            <span class="input__label-content">Address</span>
+                          </label>
+                          </span>
+                    </div>
+                    <div class="form-group col-md-6">
+                      <span class="input">
+                          <input class="input_field" name="Nationality" [(ngModel)]="Nationality" placeholder="Enter nationality" type="text">
+                            <label class="input_label">
+                            <span class="input__label-content">Nationality</span>
+                          </label>
+                          </span>
+                    </div>
+                    <div class="form-group col-md-12">
+                    Select doc to upload:
+                    <input type="file" name="fileToUpload" id="fileToUpload" [(ngModel)]="fileToUpload"><br>
+                  </div>
+                  <div class="form-group col-md-12">
+                    <button style="margin: 15px 0 0 0" class="btn btn-primary" type="submit" name="submit">Upload National ID</button>
+                    </div>
+                  </div>
+                </form>          
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+                  </div> <!-- End Box -->
+  </div>
+  <!-- /col -->
+</div>
+<!-- /row -->
+</div>
+<!-- /container -->
+
+</main>

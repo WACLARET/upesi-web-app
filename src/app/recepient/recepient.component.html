@@ -1,0 +1,267 @@
+<main>		
+  <div class="container margin_60_35">
+<div class="row">
+  <aside class="col-lg-3" id="sidebar">
+    <div class="profile">
+        <figure><img src="assets/user.svg" alt="Teacher"></figure>
+                  <div class="profile-name">
+                      <p>{{ f_name }} {{ l_name }}</p>
+                  </div>
+      <ul>
+                      <li><a routerLink="/dashboard"><i class="fa fa-home"></i> Dashboard</a></li>
+                      <li class="active"><a routerLink="/profile"><i class="fa fa-group"></i> Profile</a></li>
+                      <li><a routerLink="/transactions"><i class="fa fa-money"></i> Transactions</a></li>
+                      <li><a routerLink="/beneficiaries"><i class="fa fa-user"></i> Beneficiaries</a></li>
+                      <!-- <li><i class="fa fa-bar-chart"></i> Reports</li> -->
+        
+      </ul>
+    </div>
+  </aside>
+  <!--/aside -->
+
+  <div class="col-lg-9">
+
+        <h4>Add Beneficiary</h4>
+        <div class="row">
+          <div class="col-md-8">
+              <div class="box_teacher">
+                  <div class="box_highlight">
+                    </div>
+                    <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
+                      <li class="nav-item">
+                          <a class="nav-link active" id="one-tab" data-toggle="tab" href="#one" role="tab" aria-controls="One" aria-selected="true">Add new beneficiary</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" id="two-tab" data-toggle="tab" href="#two" role="tab" aria-controls="Two" aria-selected="false">Use existing beneficiary</a>
+                      </li>
+                    </ul>
+
+                    <div class="tab-content" id="myTabContent">
+                      <div class="tab-pane fade show active p-3" id="one" role="tabpanel" aria-labelledby="one-tab">
+                        <form *ngIf="reveal == false && reason == false" (submit)="saveBeneficiary()" autocomplete="off">
+                          <div class="form-group">             
+                            <div id="pass-info" class="clearfix"></div>
+                                </div>
+                                <div class="row">
+                                  <div class="form-group col-md-12">
+                                    <ng-select [items]="bene"
+                                    bindLabel="name" name="BeneficiaryType" bindValue="id"
+                                    placeholder="Beneficiary Type"
+                                    [(ngModel)]="BeneficiaryType">
+                                    </ng-select>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                      <p style="color: red; margin: 10px 0 0 0; font-size: 13px">All names should match National Id</p>
+                                    </div>
+                                <div class="form-group col-md-4">
+                                    <span class="input">
+                                        <input class="input_field" name="FirstName" [(ngModel)]="FirstName" type="text">
+                                          <label class="input_label">
+                                          <span class="input__label-content">FirstName *</span>
+                                        </label>
+                                        </span>
+                                  </div>
+                                  <div class="form-group col-md-4">
+                                    <span class="input">
+                                        <input class="input_field" name="MiddleName" [(ngModel)]="MiddleName" type="text">
+                                          <label class="input_label">
+                                          <span class="input__label-content">MiddleName *</span>
+                                        </label>
+                                        </span>
+                                  </div>
+                                  <div class="form-group col-md-4">
+                                    <span class="input">
+                                        <input class="input_field" name="LastName" [(ngModel)]="LastName" type="text">
+                                          <label class="input_label">
+                                          <span class="input__label-content">LastName *</span>
+                                        </label>
+                                        </span>
+                                  </div>
+                                </div>
+                            <button type="submit" class="btn_1 rounded full-width add_top_30">Save Beneficiary</button>
+                              </form>
+                              <form *ngIf="reveal == true && ServiceTypeID == 1 && reason == false" (submit)="saveBeneficiaryBank()" autocomplete="off">
+                                  <h5>Save Beneficiary Bank Details</h5>
+                                  <div class="form-group">             
+                                      <div id="pass-info" class="clearfix"></div>
+                                          </div>
+                                          <div class="row">
+                                          <div class="form-group col-md-6">
+                                              <span class="input">
+                                                  <input class="input_field" name="BankName" [(ngModel)]="BankName" type="text">
+                                                    <label class="input_label">
+                                                    <span class="input__label-content">Bank Name *</span>
+                                                  </label>
+                                                  </span>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                              <span class="input">
+                                                  <input class="input_field" name="BankBranch" [(ngModel)]="BankBranch" type="text">
+                                                    <label class="input_label">
+                                                    <span class="input__label-content">Bank Branch *</span>
+                                                  </label>
+                                                  </span>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                              <span class="input">
+                                                  <input class="input_field" name="AccountName" [(ngModel)]="AccountName" type="text">
+                                                    <label class="input_label">
+                                                    <span class="input__label-content">Account Name *</span>
+                                                  </label>
+                                                  </span>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                              <span class="input">
+                                                  <input class="input_field" name="AccountNumber" [(ngModel)]="AccountNumber" type="text">
+                                                    <label class="input_label">
+                                                    <span class="input__label-content">Account Number *</span>
+                                                  </label>
+                                                  </span>
+                                            </div>
+                                          </div>
+                                      <button type="submit" class="btn_1 rounded full-width add_top_30">Save Beneficiary Bank</button>
+                              </form>
+                              <form *ngIf="reveal == true && ServiceTypeID == 2 && reason == false" (submit)="saveBeneficiaryLoc()" autocomplete="off">
+                                  <h5>Save Beneficiary Location Details</h5>
+                                  <div class="form-group">             
+                                      <div id="pass-info" class="clearfix"></div>
+                                          </div>
+                                          <div class="row">
+                                          <div class="form-group col-md-6">
+                                              <span class="input">
+                                                  <input class="input_field" name="State" [(ngModel)]="State" type="text">
+                                                    <label class="input_label">
+                                                    <span class="input__label-content">State *</span>
+                                                  </label>
+                                                  </span>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                              <span class="input">
+                                                  <input class="input_field" name="City" [(ngModel)]="City" type="text">
+                                                    <label class="input_label">
+                                                    <span class="input__label-content">City *</span>
+                                                  </label>
+                                                  </span>
+                                            </div>
+                                            <div class="form-group col-md-12">
+                                              <span class="input">
+                                                  <input class="input_field" name="Address" [(ngModel)]="Address" type="text">
+                                                    <label class="input_label">
+                                                    <span class="input__label-content">Address *</span>
+                                                  </label>
+                                                  </span>
+                                            </div>
+                                          </div>
+                                      <button type="submit" class="btn_1 rounded full-width add_top_30">Save Beneficiary Location</button>
+                                </form>
+                              <form *ngIf="reveal == true && ServiceTypeID == 3 && reason == false" (submit)="saveBeneficiaryMobile()" autocomplete="off">
+                                  <h5>Save Beneficiary Mobile Wallet Details</h5>
+                                  <div class="form-group">             
+                                      <div id="pass-info" class="clearfix"></div>
+                                          </div>
+                                          <div class="row">
+                                              <div class="form-group col-md-6">
+                                                  <ng-select [items]="auth_countries"
+                                                  bindLabel="name" name="ToCountryID" bindValue="id"
+                                                  placeholder="Pick Your Country" (change)="MobileProviders(ToCountryID)"
+                                                  [(ngModel)]="ToCountryID">
+                                                  </ng-select>
+                                                  
+                                                  <div id="pass-info" class="clearfix"></div>
+                                                </div>
+                                            <div class="form-group col-md-6">
+                                              <ng-select [items]="providers"
+                                              bindLabel="name" name="MobileMoneyProviderID" bindValue="id"
+                                              placeholder="Pick Mobile Money Provider *"
+                                              [(ngModel)]="MobileMoneyProviderID">
+                                              </ng-select>
+                                              </div>
+                                            <div class="form-group col-md-12">
+                                              <span class="input">
+                                                  <input class="input_field" name="MobileNumber" [(ngModel)]="MobileNumber" type="text">
+                                                    <label class="input_label">
+                                                    <span class="input__label-content">Mobile Number *</span>
+                                                  </label>
+                                                  </span>
+                                            </div>
+                                          </div>
+                                      <button type="submit" class="btn_1 rounded full-width add_top_30">Save Mobile Wallet</button>
+                                </form>
+                      </div>
+                      <div class="tab-pane fade p-3" id="two" role="tabpanel" aria-labelledby="two-tab">
+                        <div *ngIf="reaveal_ben == false" class="row">
+                        <div class="form-group col-md-12">
+                            <ng-select [items]="resources" name="BeneficiaryID" bindLabel="fullName" bindValue="id" placeholder="Pick Beneficiary"
+                            [(ngModel)]="BeneficiaryID" (change)="GetBenData(BeneficiaryID)"> </ng-select>                       
+                          <div id="pass-info" class="clearfix"></div>
+                        </div>
+                        <button (click)="setD()" class="btn_1 rounded full-width add_top_30">Next</button>
+                      </div>
+                      </div>
+                    </div>
+                        <form *ngIf="reason == true" (submit)="processPayment()" autocomplete="off">
+                            <h5>Add Payment Reason</h5>
+                            <div class="form-group">             
+                                <div id="pass-info" class="clearfix"></div>
+                                    </div>
+                                    <div class="row">
+                                      <div class="form-group col-md-12">
+                                        <span class="input">
+                                            <input class="input_field" (keyup)="getBeneficiaryData()" name="PurposeofRemittance" [(ngModel)]="PurposeofRemittance" type="text" required>
+                                              <label class="input_label">
+                                              <span class="input__label-content">Purpose of remittance *</span>
+                                            </label>
+                                            </span> 
+                                      </div>
+                                      <div class="form-group col-md-12">
+                                        <ng-select [items]="rem" (change)="getBeneficiaryData()"
+                                        bindLabel="name" name="PurposeofRemittance" bindValue="$id"
+                                        placeholder="Purpose of remittance"
+                                        [(ngModel)]="PurposeofRemittance">
+                                        </ng-select>
+                                        
+                                        <div id="pass-info" class="clearfix"></div>
+                                      </div>
+                                    </div>
+                                    <div *ngIf="countData() == true" class="row">
+                                      <div class="form-group col-md-12">
+                                        <ng-select [items]="source"
+                                        bindLabel="name" name="SourceofFundID" bindValue="id"
+                                        placeholder="Source of Income"
+                                        [(ngModel)]="SourceofFundID">
+                                        </ng-select>
+                                        
+                                        <div id="pass-info" class="clearfix"></div>
+                                      </div>
+                                      <div class="form-group col-md-12">
+                                        Upload proof of funds e.g bank statement:
+                                        <input type="file" name="fileToUpload" id="fileToUpload" [(ngModel)]="fileToUpload"><br>
+                                      </div>
+                                    </div>
+                                <button type="submit" class="btn_1 rounded full-width add_top_30">Make Payment</button>
+                          </form>
+          </div>
+          </div>
+          <div class="col-md-4">
+              <div class="box_teacher">
+                  <div class="box_highlight">
+                    </div>
+                         <div class="row">
+                            <div class="col-md-12">
+                                <h5 class="modal-title">Pending transaction</h5>
+                              <h3>Send Amount : KES {{ amount | amount:locale }}</h3>
+                              <h5>To be recieved:<br> {{ currency_code }}  {{ getsender | amount:locale }}</h5>
+                            </div>
+                         </div>
+          </div>
+        </div>
+                  </div> <!-- End Box -->
+
+  </div>
+  <!-- /col -->
+</div>
+<!-- /row -->
+</div>
+<!-- /container -->
+
+</main>

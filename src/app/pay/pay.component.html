@@ -1,0 +1,71 @@
+
+<main>		
+    <div class="container margin_60_35">
+  <div class="row">
+    <aside class="col-lg-3" id="sidebar">
+      <div class="profile">
+          <figure><img src="assets/user.svg" alt="Teacher"></figure>
+                    <div class="profile-name">
+                        <p>{{ f_name }} {{ l_name }}</p>
+                    </div>
+        <ul>
+                        <li><a routerLink="/dashboard"><i class="fa fa-home"></i> Dashboard</a></li>
+                        <li class="active"><a routerLink="/profile"><i class="fa fa-group"></i> Profile</a></li>
+                        <li><a routerLink="/transactions"><i class="fa fa-money"></i> Transactions</a></li>
+                        <li><a routerLink="/beneficiaries"><i class="fa fa-user"></i> Beneficiaries</a></li>
+                        <!-- <li><i class="fa fa-bar-chart"></i> Reports</li> -->
+          
+        </ul>
+      </div>
+    </aside>
+    <!--/aside -->
+  
+    <div class="col-lg-9">
+  
+          <h4>Make Payment</h4>
+          <div class="row">
+            <div class="col-md-8" [ng2-loading]="show"
+            [config]="loadingConfig">
+                <div class="box_teacher">
+                    <div class="box_highlight">
+            </div>
+                <form (submit)="finishPayment()" autocomplete="off">
+                  <img src="assets/pay.png" style="width: 300px;" />
+                    <h5>Enter your MPesa phone number i.e ( +254712345678 )</h5>
+                  <div class="row" >
+                    <div class="form-group col-md-12">
+                      <span class="input">
+                        <input class="input_field" name="MSISDN" [(ngModel)]="MSISDN" placeholder="e.g +254710111222" type="text">
+                          <label class="input_label">
+                          <span class="input__label-content">Phone number</span>
+                        </label>
+                        </span>
+                    </div>
+                    <button type="submit" class="btn_1 rounded full-width add_top_30" id="load" 
+                    (click)="showLoading()">Send</button>
+                  </div>
+                  </form>      
+            </div>
+          </div>
+          <div class="col-md-4">
+              <div class="box_teacher">
+                  <div class="box_highlight">
+                    </div>
+                         <div class="row">
+                            <div class="col-md-12">
+                                <h5 class="modal-title">Pending transaction</h5>
+                              <h3>Send Amount : KES {{ amount | amount:locale }}</h3>
+                              <h5>To be recieved:<br> {{ currency_code }}  {{ getsender | amount:locale }}</h5>
+                            </div>
+                         </div>
+          </div>
+        </div>
+                    </div> <!-- End Box -->
+    </div>
+    <!-- /col -->
+  </div>
+  <!-- /row -->
+  </div>
+  <!-- /container -->
+  
+  </main>

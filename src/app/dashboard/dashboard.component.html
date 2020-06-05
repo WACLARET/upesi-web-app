@@ -1,0 +1,194 @@
+<div class="modal fade" id="finish">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Pay Via Mpesa</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <form (submit)="finishPayment()" autocomplete="off">
+              <h5>Enter your MPesa phone number i.e ( 254 700 000 000 )</h5>
+            <div class="row">
+              <div class="form-group col-md-12">
+                <span class="input">
+                  <input class="input_field" name="MSISDN" [(ngModel)]="MSISDN" placeholder="e.g 254710111222" type="text">
+                    <label class="input_label">
+                    <span class="input__label-content">Phone number</span>
+                  </label>
+                  </span>
+              </div>
+              <button type="submit" class="btn_1 rounded full-width add_top_30">Send</button>
+            </div>
+            </form>                          
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="newtrans">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">New Transaction</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            
+          <form autocomplete="off">
+            <h4>Send Money Now</h4>
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <ng-select [items]="auth_countries"
+                        bindLabel="name" name="ToCountryID" bindValue="id"
+                        placeholder="Send to Country: {{ currency_code }}" (change)="pull_toCurrency(ToCountryID)"
+                        [(ngModel)]="ToCountryID">
+                        </ng-select>
+                        
+                        <div id="pass-info" class="clearfix"></div>
+                      </div>
+                    <div class="form-group col-md-6">
+                        <ng-select [items]="services"
+                        bindLabel="name" name="service" bindValue="id"
+                        placeholder="Pick Service"
+                        [(ngModel)]="service">
+                        </ng-select>
+                        
+                        <div id="pass-info" class="clearfix"></div>
+                      </div>
+                      <div class="form-group col-md-6">
+                          <span class="input">
+                              <input class="input_field" name="Amount" (keyup)="getSendValue()" value="{{ calculated_recieve }}" [(ngModel)]="Amount" type="number">
+                                <label class="input_label">
+                                <span class="input__label-content">Send Amount (KES)</span>
+                              </label>
+                              </span>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <span class="input">
+                                <input class="input_field" name="R_Amount" (keyup)="getReceiveValue()" [(ngModel)]="R_Amount" value="{{ calculated_send }}" type="number">
+                                  <label class="input_label">
+                                  <span class="input__label-content">Recive Amount {{ currency_code }}</span>
+                                </label>
+                                </span>
+                          </div>
+                </div>
+                <div *ngIf="fx == true" class="card">
+                    <div class="card-body">
+                      <p class="card-text">Send Amount <span class="pull-right">KES {{ f_Amount }}</span></p>
+                      <p class="card-text">Exchange Rate: <span class="pull-right">{{ exchangeRate }}</span></p> 
+                      <p class="card-text">Tariff Amount: <span class="pull-right">{{ tariffAmount }}</span></p> 
+                      <p class="card-text">Recipient Gets <span class="pull-right">{{ currency_c }} {{ calc_amount }}</span></p>
+                    </div>
+                  </div> <!-- card.// -->
+            <button data-dismiss="modal" *ngIf="checkInt(calculated_send) == true" (click)="Complete()" class="btn_1 rounded full-width add_top_30">Send Amount</button>
+                </form>
+                
+                     
+        </div>
+      </div>
+    </div>
+  </div>
+<div class="modal fade" id="continue">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Complete your transaction</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+                 <div class="row">
+                    <div class="col-md-12">
+                      <h3>You have an ongoing transaction.</h3>
+                      <h5>Send Amount : KES {{ amount | amount:locale }}</h5>
+                      <h5>To be received: {{ currency_code }} {{ getsender | amount:locale }}</h5>                    
+                    </div>
+                    <div class="col-md-6">
+                        <a data-dismiss="modal" routerLink="/recepient"><button class="btn_1 rounded full-width add_top_30">Next Step</button></a>
+                    </div>
+                    <div class="col-md-6">
+                        <button (click)="cancel()" style="background: #ac2f32;" class="btn_1 rounded full-width add_top_30">Cancel Transaction</button>
+                    </div>
+                 </div>
+                    
+    
+          </div>
+        </div>
+      </div>
+    </div>
+<main>	
+    <div class="container margin_60_35">
+  <div class="row">
+    <aside class="col-lg-3" id="sidebar">
+      <div class="profile">
+        <figure><img src="assets/user.svg" alt="Teacher"></figure>
+                    <div class="profile-name">
+                        <p>{{ f_name }} {{ l_name }}</p>
+                    </div>
+        <ul>
+          <li class="active"><a routerLink="/dashboard"><i class="fa fa-home"></i> Dashboard</a></li>
+          <li><a routerLink="/profile"><i class="fa fa-group"></i> Profile</a></li>
+          <li><a routerLink="/transactions"><i class="fa fa-money"></i> Transactions</a></li>
+          <li><a routerLink="/beneficiaries"><i class="fa fa-user"></i> Beneficiaries</a></li>
+          <li><button data-toggle="modal" (click)="setCompleted(false)" data-target="#newtrans" data-backdrop="false" class="btn_1 rounded full-width add_top_30 pull-right">New Transaction</button></li>
+          <!-- <li><i class="fa fa-bar-chart"></i> Reports</li> -->
+          
+        </ul>
+      </div>
+    </aside>
+    <!--/aside -->
+
+    <div class="col-lg-9">
+      <div class="box_teacher">
+                        <div class="box_highlight">
+            <ul class="additional_info">
+              <li><i class="pe-7s-cash"></i>Total Amount Sent<strong>KES {{ total_sent }}</strong></li>
+              <li><i class="pe-7s-rocket"></i>Transactions Pending<strong>{{ pending }}</strong></li>
+              <li><i class="pe-7s-timer"></i>% Profile Completed<strong>{{ prof_complete }}%</strong></li>
+            </ul>
+          </div>
+ 
+          <h4>Pending Transactions</h4>
+            <table class="table table-responsive table-striped add_bottom_30">
+              <thead>
+                <tr>
+                  <th>Service Name</th>
+                  <th>Ref No.</th>
+                  <th>Amount</th>
+                  <th>Received</th>
+                  <th>Incomplete</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let data of all_transactions">
+                  <td>{{ data.serviceName }}</td>
+                  <td>{{ data.referenceNumber }}</td>
+                  <td>{{ data.receiverAmountStr }}</td>
+                  <td *ngIf="data.senderPaymentReceived == false"><i style="color:red" class="fa fa-times"></i></td>
+                  <td *ngIf="data.senderPaymentReceived == true"><i style="color: green" class="fa fa-check"></i></td>
+                  <td><button *ngIf="data.transactionStatusStr == 'Pending'" style="padding: 10px 12px; font-weight: 400; font-size: 13px; margin-top: 0px;" data-toggle="modal" (click)="gather(data.id)" data-target="#finish" data-backdrop="false" class="btn_1 rounded full-width add_top_30 pull-right">Make payment</button></td>
+                </tr>
+                <tr>
+                  <td><p style="padding:5px;">Total of <strong>{{ currentPage }}</strong>, <strong>{{ pageSize }}</strong> per page</p></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                
+              </tbody>
+            </table>
+                    </div> <!-- End Box -->
+    </div>
+    <!-- /col -->
+  </div>
+  <!-- /row -->
+</div>
+<!-- /container -->
+
+</main>

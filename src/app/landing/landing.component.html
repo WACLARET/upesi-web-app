@@ -1,0 +1,58 @@
+<div id="register_bg">
+  <div id="login">
+    <aside>
+        <a routerLink="/"><img src="assets/img/upesi/upesi-logo.png" data-retina="true" alt="" style="width:40%;"></a>
+        <p (click)="onLogin()" align="right" style="cursor: pointer">Go to Account<br></p>
+      
+      <form style="margin: 40px 0 0 0;" autocomplete="off">
+        <h4>Send Money Now</h4>
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <ng-select [items]="auth_countries"
+                    bindLabel="name" name="ToCountryID" bindValue="id"
+                    placeholder="Send to Country: {{ currency_code }}" (change)="pull_toCurrency(ToCountryID)"
+                    [(ngModel)]="ToCountryID">
+                    </ng-select>
+                    
+                    <div id="pass-info" class="clearfix"></div>
+                  </div>
+                <div class="form-group col-md-6">
+                    <ng-select [items]="services"
+                    bindLabel="name" name="service" bindValue="id"
+                    placeholder="Pick Service"
+                    [(ngModel)]="service">
+                    </ng-select>
+                    
+                    <div id="pass-info" class="clearfix"></div>
+                  </div>
+                  <div class="form-group col-md-6">
+                      <span class="input">
+                          <input class="input_field" OnlyNumber="true" name="Amount" (keyup)="getSendValue()" value="{{ calculated_recieve }}" [(ngModel)]="Amount" type="number">
+                            <label class="input_label">
+                            <span class="input__label-content">Send (KES)</span>
+                          </label>
+                          </span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <span class="input">
+                            <input class="input_field" OnlyNumber="true" name="R_Amount" (keyup)="getReceiveValue()" [(ngModel)]="R_Amount" value="{{ calculated_send }}" type="number">
+                              <label class="input_label">
+                              <span class="input__label-content">Receive {{ currency_code }}</span>
+                            </label>
+                            </span>
+                      </div>
+            </div>
+            <div *ngIf="fx == true" class="card">
+                <div class="card-body">
+                  <p class="card-text">Send Amount <span class="pull-right">KES {{ f_Amount }}</span></p>
+                  <p class="card-text">Exchange Rate: <span class="pull-right">{{ exchangeRate }}</span></p> 
+                  <p class="card-text">Fees: <span class="pull-right">{{ tariffAmount }}</span></p> 
+                  <p class="card-text">Recipient Gets <span class="pull-right">{{ currency_c }} {{ calc_amount }}</span></p>
+                </div>
+              </div> <!-- card.// -->
+        <button *ngIf="checkInt(calculated_send) == true" (click)="onLogin()" class="btn_1 rounded full-width add_top_30">Send Amount</button>
+            </form>
+            
+    </aside>
+  </div>
+  </div>

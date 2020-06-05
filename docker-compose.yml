@@ -1,0 +1,12 @@
+version: '3.4'
+
+services:
+  customerportal:
+    container_name: customerupesi
+    image: upesi.azurecr.io/sendmoney:1.0.1
+    environment:
+      - TZ=Europe/Moscow
+    restart: always
+    ports:
+      - "4453:80"
+  

@@ -1,0 +1,46 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@ng-select/ng-select/themes/material.theme.css";
+
+.form-group {
+    margin-bottom: 0;
+}
+.input__label-content {
+    padding: 0.3em 0!important;
+}
+.ng-select {
+    padding-bottom: .5em;
+}
+#login aside form, #register aside form {
+    margin-bottom: 0px;
+}
+header {
+    position: absolute;
+}
+label {
+    margin-top: 8px;
+}
+.modal-open .modal {
+    margin: -90px 0 0 0;
+}
+.modal {
+    background: rgba(0,0,0,0.1);
+}
+@media (min-width: 1025px) and (max-width: 1280px) {
+    #bene_bt {
+        font-size: 16px;
+        width: 30px;
+    }  
+  }
+  .ng-select.ng-select-single .ng-select-container .ng-clear-wrapper {
+    display: none;
+  }
+ /*  #login aside {
+    width: 500px!important;
+  } */
+figure img {
+    width:100px!important;
+    margin: 0 0 0 25px;
+}
+.validate_lable /* .ng-select .ng-select-container .ng-value-container .ng-placeholder */ {
+    color: red!important;
+}

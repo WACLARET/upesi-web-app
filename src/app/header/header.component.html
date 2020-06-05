@@ -1,0 +1,53 @@
+<header class="header fadeInDown">
+		<div id="logo">
+			<a routerLink="/dashboard"><img src="assets/img/upesi/upesi-logo.png" width="149" height="50" data-retina="true" alt=""></a>
+		</div>
+		<ul id="top_menu">
+			<li><a routerLink="/profile" class="login">Hi, {{ f_name }} {{ l_name }}</a></li>
+			<li class="hidden_tablet"><a (click)="onLogout()" class="btn_1 rounded">Logout</a></li>
+			<li>
+				<div class="hamburger hamburger--spin">
+					<div class="hamburger-box">
+						<div class="hamburger-inner"></div>
+					</div>
+				</div>
+			</li>
+		</ul>
+		<!-- /top_menu -->
+	</header>
+	<!-- /header -->
+	
+	<div id="main_menu">
+		<div class="container">
+		<nav class="version_2">
+				<div class="row">
+					<div class="col-md-3">
+						<h3>Options</h3>
+						<ul>
+							<li><a routerLink="/dashboard">Dashboard</a></li>
+							<li><a routerLink="/profile">Profile</a></li>
+							<li><a routerlink="/transactions">Transactions</a></li>
+							<li><a routerlink="/reports">Reports</a></li>
+							<li><a (click)="onLogout()">Logout</a></li>
+							
+						</ul>
+					</div>
+					<div class="col-md-3">
+						
+					</div>
+					<div class="col-md-3">
+						
+					</div>
+					<div class="col-md-3">
+						
+					</div>
+				</div>
+				<!-- /row -->
+			</nav>
+			<div class="follow_us">
+				
+			</div>
+		</div>
+	</div>
+	<!-- /main_menu -->
+	

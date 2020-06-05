@@ -1,0 +1,11 @@
+.modal-dialog {
+    max-width: 650px!important;
+}
+.card-text {
+    font-size: 14px;
+}
+@media (min-width: 768px){
+.card-body {
+padding: 0 80px!important;
+}
+}

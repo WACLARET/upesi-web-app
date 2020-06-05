@@ -1,0 +1,129 @@
+<div class="modal fade" id="add_bank">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add Beneficiary Bank Details</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <form (submit)="saveBeneficiaryBank()" autocomplete="off">
+            <div class="form-group">             
+              <div id="pass-info" class="clearfix"></div>
+                  </div>
+                  <div class="row">
+                  <div class="form-group col-md-6">
+                      <span class="input">
+                          <input class="input_field" name="BankName" [(ngModel)]="BankName" type="text">
+                            <label class="input_label">
+                            <span class="input__label-content">Bank Name *</span>
+                          </label>
+                          </span>
+                    </div>
+                    <div class="form-group col-md-6">
+                      <span class="input">
+                          <input class="input_field" name="BankBranch" [(ngModel)]="BankBranch" type="text">
+                            <label class="input_label">
+                            <span class="input__label-content">Bank Branch *</span>
+                          </label>
+                          </span>
+                    </div>
+                    <div class="form-group col-md-6">
+                      <span class="input">
+                          <input class="input_field" name="AccountName" [(ngModel)]="AccountName" type="text">
+                            <label class="input_label">
+                            <span class="input__label-content">Account Name *</span>
+                          </label>
+                          </span>
+                    </div>
+                    <div class="form-group col-md-6">
+                      <span class="input">
+                          <input class="input_field" name="AccountNumber" [(ngModel)]="AccountNumber" type="text">
+                            <label class="input_label">
+                            <span class="input__label-content">Account Number *</span>
+                          </label>
+                          </span>
+                    </div>
+                  </div>
+              <button type="submit" class="btn_1 rounded full-width add_top_30">Save Beneficiary Bank</button>
+                </form>
+      </div>
+    </div>
+  </div>
+</div>
+<main>		
+  <div class="container margin_60_35">
+<div class="row">
+  <aside class="col-lg-3" id="sidebar">
+    <div class="profile">
+        <figure><img src="assets/user.svg" alt="Teacher"></figure>
+                  <div class="profile-name">
+                      <p>{{ f_name }} {{ l_name }}</p>
+                  </div>
+      <ul>
+                      <li><a routerLink="/dashboard"><i class="fa fa-home"></i> Dashboard</a></li>
+                      <li class="active"><a routerLink="/profile"><i class="fa fa-group"></i> Profile</a></li>
+                      <li><a routerLink="/transactions"><i class="fa fa-money"></i> Transactions</a></li>
+                      <li><a routerLink="/beneficiaries"><i class="fa fa-user"></i> Beneficiaries</a></li>
+                      <!-- <li><i class="fa fa-bar-chart"></i> Reports</li> -->
+        
+      </ul>
+    </div>
+  </aside>
+  <!--/aside -->
+
+  <div class="col-lg-9">
+    <div class="box_teacher">
+                      <div class="box_highlight">
+        </div>
+
+        <h4>Beneficiaries Bank Details</h4>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card mt-3 tab-card">
+              <div class="card-header tab-card-header">
+              <button *ngIf="bankdetails == false" data-toggle="modal" style="width:200px; font-size:16px" data-target="#add_bank" data-backdrop="false" class="btn_1 rounded full-width add_top_30">Add Bank</button>
+              </div>
+              <table *ngIf="bankdetails == true" class="table table-responsive table-striped add_bottom_30">
+                <thead>
+                  <tr>
+                    <th>A/c Name</th>
+                    <th>A/c Account</th>
+                    <th>Bank</th>
+                    <th>Branch</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>{{ accountName }}</td>
+                    <td>{{ accountNumber }}</td>
+                    <td>{{ bankName }}</td>
+                    <td>{{ bankBranch }}</td>
+                    <td>
+                      <div class="dropdown">
+                        <button style="cursor:pointer" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Options
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                          <a class="dropdown-item" style="cursor:pointer" (click)="deleteBank(data.id)">Delete Bank Record</a>
+                        </div>
+                      </div>
+                    </td>
+                </tr>
+                  
+                </tbody>
+              </table>
+
+        </div>
+          </div>
+        </div>
+                  </div> <!-- End Box -->
+  </div>
+  <!-- /col -->
+</div>
+<!-- /row -->
+</div>
+<!-- /container -->
+
+</main>
